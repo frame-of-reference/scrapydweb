@@ -9,13 +9,11 @@ import traceback
 from flask import Flask, current_app, render_template, url_for
 from flask_compress import Compress
 from logparser import __version__ as LOGPARSER_VERSION
-
 from .__version__ import __url__, __version__
 from .common import handle_metadata
 from .models import Metadata, db
 from .vars import PYTHON_VERSION, SQLALCHEMY_BINDS, SQLALCHEMY_DATABASE_URI
 # from .utils.scheduler import scheduler
-logger = logging.getLogger('scrapydweb.run')
 
 # https://stackoverflow.com/questions/18820274/how-to-suppress-sqlalchemy-engine-base-engine-logging-to-stdout
 # logging.getLogger('sqlalchemy.engine.base.Engine').propagate = False

@@ -65,6 +65,9 @@ def setup_database(database_url, database_path):
         print("APSCHEDULER_DATABASE_URI: %s" % APSCHEDULER_DATABASE_URI)
         print("SQLALCHEMY_DATABASE_URI: %s" % SQLALCHEMY_DATABASE_URI)
         print("SQLALCHEMY_BINDS: %s" % SQLALCHEMY_BINDS)
+        
+    if os.getenv('SCRAPYDWEB_ENABLE_POSTGRES'):
+        SQLALCHEMY_DATABASE_URI = f'postgresql://{os.getenv("POSTGRES_USER")}:{os.getenv("POSTGRES_PASSWORD")}@{os.getenv("POSTGRES_SERVER")}/{os.getenv("SCRAPYDWEB_POSTGRES_DB")}'
     return APSCHEDULER_DATABASE_URI, SQLALCHEMY_DATABASE_URI, SQLALCHEMY_BINDS, database_path
 
 

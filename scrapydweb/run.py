@@ -28,10 +28,9 @@ def main():
     logger.info("Use 'scrapydweb -h' to get help")
     logger.info("Main pid: %s", main_pid)
     logger.debug("Loading default settings from %s", handle_slash(DEFAULT_SETTINGS_PY_PATH))
-    logger.debug("SQLALCHEMY_DATABASE_URI %s", SQLALCHEMY_DATABASE_URI)
-    apscheduler_logger.debug("SQLALCHEMY_DATABASE_URI %s", SQLALCHEMY_DATABASE_URI)
     app = create_app()
-    app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+    if os.getenv('SCRAPYDWEB_ENABLE_POSTGRES'):
+        app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{os.getenv("POSTGRES_USER")}:{os.getenv("POSTGRES_PASSWORD")}@{os.getenv("POSTGRES_SERVER")}/{os.getenv("SCRAPYDWEB_POSTGRES_DB")}'
     handle_metadata('main_pid', main_pid)  # In handle_metadata(): with db.app.app_context():
     app.config['MAIN_PID'] = main_pid
     app.config['DEFAULT_SETTINGS_PY_PATH'] = DEFAULT_SETTINGS_PY_PATH
