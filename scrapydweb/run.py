@@ -8,14 +8,13 @@ import sys
 from flask import request
 
 # from . import create_app  # --debug: ImportError: cannot import name 'create_app'
-from scrapydweb import create_app
+from scrapydweb import create_app, logger
 from scrapydweb.__version__ import __description__, __version__
 from scrapydweb.common import authenticate, find_scrapydweb_settings_py, handle_metadata, handle_slash
 from scrapydweb.vars import ROOT_DIR, SCRAPYDWEB_SETTINGS_PY, SQLALCHEMY_DATABASE_URI, SCHEDULER_STATE_DICT, STATE_PAUSED, STATE_RUNNING
 from scrapydweb.utils.check_app_config import check_app_config
 
 
-logger = logging.getLogger(__name__)
 apscheduler_logger = logging.getLogger('apscheduler')
 
 STAR = '\n%s\n' % ('*' * 100)
@@ -30,6 +29,7 @@ def main():
     logger.info("Main pid: %s", main_pid)
     logger.debug("Loading default settings from %s", handle_slash(DEFAULT_SETTINGS_PY_PATH))
     logger.debug("SQLALCHEMY_DATABASE_URI %s", SQLALCHEMY_DATABASE_URI)
+    apscheduler_logger.debug("SQLALCHEMY_DATABASE_URI %s", SQLALCHEMY_DATABASE_URI)
     app = create_app()
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     handle_metadata('main_pid', main_pid)  # In handle_metadata(): with db.app.app_context():
