@@ -16,6 +16,7 @@ from .models import Metadata, db
 from .vars import PYTHON_VERSION, SQLALCHEMY_BINDS, SQLALCHEMY_DATABASE_URI
 # from .utils.scheduler import scheduler
 
+logger = logging.getLogger(__name__)
 
 # https://stackoverflow.com/questions/18820274/how-to-suppress-sqlalchemy-engine-base-engine-logging-to-stdout
 # logging.getLogger('sqlalchemy.engine.base.Engine').propagate = False
@@ -107,6 +108,7 @@ def create_app(test_config=None):
 
 def handle_db(app):
     # https://flask-sqlalchemy.palletsprojects.com/en/master/config/
+    logger.debug('handle_db::SQLALCHEMY_DATABASE_URI, %s' % SQLALCHEMY_DATABASE_URI)
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     app.config['SQLALCHEMY_BINDS'] = SQLALCHEMY_BINDS
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # https://stackoverflow.com/a/33790196/10517783
