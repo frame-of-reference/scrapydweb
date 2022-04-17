@@ -15,8 +15,7 @@ from .common import handle_metadata
 from .models import Metadata, db
 from .vars import PYTHON_VERSION, SQLALCHEMY_BINDS, SQLALCHEMY_DATABASE_URI
 # from .utils.scheduler import scheduler
-
-logger = logging.getLogger(__name__)
+from .run import logger
 
 # https://stackoverflow.com/questions/18820274/how-to-suppress-sqlalchemy-engine-base-engine-logging-to-stdout
 # logging.getLogger('sqlalchemy.engine.base.Engine').propagate = False
