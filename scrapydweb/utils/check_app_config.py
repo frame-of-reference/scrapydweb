@@ -280,8 +280,9 @@ def check_app_config(config):
     check_assert('DATABASE_URL', '', str)
     database_url = config.get('DATABASE_URL', '')
     if database_url:
-        assert any(test_database_url_pattern(database_url)), "Invalid format of DATABASE_URL: %s" % database_url
-
+        logger.info('DATABASE_URL %s' % database_url)
+        # assert any(test_database_url_pattern(database_url)), "Invalid format of DATABASE_URL: %s" % database_url
+        pass
     # Apscheduler
     # In __init__.py create_app(): scheduler.start(paused=True)
     if handle_metadata().get('scheduler_state', STATE_RUNNING) != STATE_PAUSED:
