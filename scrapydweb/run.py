@@ -11,7 +11,7 @@ from flask import request
 from scrapydweb import create_app
 from scrapydweb.__version__ import __description__, __version__
 from scrapydweb.common import authenticate, find_scrapydweb_settings_py, handle_metadata, handle_slash
-from scrapydweb.vars import ROOT_DIR, SCRAPYDWEB_SETTINGS_PY, SCHEDULER_STATE_DICT, STATE_PAUSED, STATE_RUNNING
+from scrapydweb.vars import ROOT_DIR, SCRAPYDWEB_SETTINGS_PY, SQLALCHEMY_DATABASE_URI, SCHEDULER_STATE_DICT, STATE_PAUSED, STATE_RUNNING
 from scrapydweb.utils.check_app_config import check_app_config
 
 
@@ -29,7 +29,9 @@ def main():
     logger.info("Use 'scrapydweb -h' to get help")
     logger.info("Main pid: %s", main_pid)
     logger.debug("Loading default settings from %s", handle_slash(DEFAULT_SETTINGS_PY_PATH))
+    logger.debug("SQLALCHEMY_DATABASE_URI %s", SQLALCHEMY_DATABASE_URI)
     app = create_app()
+    app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     handle_metadata('main_pid', main_pid)  # In handle_metadata(): with db.app.app_context():
     app.config['MAIN_PID'] = main_pid
     app.config['DEFAULT_SETTINGS_PY_PATH'] = DEFAULT_SETTINGS_PY_PATH
