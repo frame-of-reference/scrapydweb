@@ -8,7 +8,7 @@ import sys
 from flask import request
 
 # from . import create_app  # --debug: ImportError: cannot import name 'create_app'
-from scrapydweb import create_app, logger
+from scrapydweb import create_app
 from scrapydweb.__version__ import __description__, __version__
 from scrapydweb.common import authenticate, find_scrapydweb_settings_py, handle_metadata, handle_slash
 from scrapydweb.vars import ROOT_DIR, SCRAPYDWEB_SETTINGS_PY, SQLALCHEMY_DATABASE_URI, SCHEDULER_STATE_DICT, STATE_PAUSED, STATE_RUNNING
@@ -19,7 +19,7 @@ apscheduler_logger = logging.getLogger('apscheduler')
 
 STAR = '\n%s\n' % ('*' * 100)
 DEFAULT_SETTINGS_PY_PATH = os.path.join(ROOT_DIR, 'default_settings.py')
-
+logger = logging.getLogger(__name__)
 
 def main():
     apscheduler_logger.setLevel(logging.ERROR)  # To hide warning logging in scheduler.py until app.run()

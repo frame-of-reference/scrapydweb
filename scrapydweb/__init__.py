@@ -105,7 +105,7 @@ def create_app(test_config=None):
 
 def handle_db(app):
     # https://flask-sqlalchemy.palletsprojects.com/en/master/config/
-    logger.debug('handle_db::SQLALCHEMY_DATABASE_URI, %s' % SQLALCHEMY_DATABASE_URI)
+    app.logger.debug('handle_db::SQLALCHEMY_DATABASE_URI, %s' % SQLALCHEMY_DATABASE_URI)
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     app.config['SQLALCHEMY_BINDS'] = SQLALCHEMY_BINDS
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # https://stackoverflow.com/a/33790196/10517783
